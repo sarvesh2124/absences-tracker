@@ -1,0 +1,54 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    font-family: sans-serif !important;
+}
+.p-radiobutton .p-radiobutton-box:not(.p-disabled).p-focus {
+    box-shadow: none !important;
+}
+body .p-datatable .p-datatable-tbody > tr > td {
+    text-align: center;
+}
+body .p-datatable .p-datatable-thead > tr > th {
+    text-align: center;
+    background: #2196f3;
+    color: #fff;
+    font-weight: bold;
+}
+
+body .p-datatable .p-datatable-thead > tr > td {
+    text-align: center;
+}
+img {
+    width: 100%;
+    height: auto;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+td {
+    word-break: break-all;
+}
+body i.pi.pi-download {
+    margin-right: 10px;
+}
+input {
+    height: 40px;
+    border: 2px #2196f3 solid;
+    padding-left: 35px;
+    color: #2196f3;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+input:focus {
+    outline: none;
+}
+body .p-radiobutton-label {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+body .p-datepicker table td {
+    padding: 0px;
+    font-size: 12px;
+}

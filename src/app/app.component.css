@@ -1,0 +1,41 @@
+.outer-wrapper {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    min-height: 90vh;
+}
+
+.header-space {
+    padding: 20px;
+    background-color: #2196f3;
+}
+.radio-wrapper {
+    margin: 20px;
+}
+.header-space {
+    font-weight: bold;
+    color: #fff;
+    font-size: 19px;
+    text-align: center;
+}
+.radio-wrapper p-radiobutton {
+    width: 42%;
+}
+
+.radio-wrapper {
+    width: 40%;
+    margin: 0 auto;
+    text-align: center;
+    display: inline-block;
+    margin: 30px;
+}
+.search-section {
+    margin: 30px 0px;
+}
+
+.bottom-space {
+    padding: 1%;
+    background: #2196f3;
+    width: 100%;
+    bottom: 0;
+}

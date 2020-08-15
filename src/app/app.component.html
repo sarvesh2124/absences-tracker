@@ -1,0 +1,17 @@
+<div class="header-space">Absences Tracker</div>
+<div class="outer-wrapper">
+  <div class="radio-wrapper" *ngIf="!searchByParams">
+    <p-radioButton name="groupname" value="searchById" [(ngModel)]="selectedSearchValue" label="Search By Id" (click)="loadSearch()"></p-radioButton>
+    <p-radioButton name="groupname" value="searchByDate" [(ngModel)]="selectedSearchValue" label="Search By Date" (click)="loadSearch()"></p-radioButton>
+  </div>
+  <div class="search-section" *ngIf="memberAbsenceDetailsList != null">
+    <div class="search-by-id-section" *ngIf="showSearchByIdSection">
+      <app-search-by-id [memberAbsenceDetailsList]="memberAbsenceDetailsList" [searchMemberId]="searchMemberId"></app-search-by-id>
+    </div>
+    <div class="search-by-date-section" *ngIf="showSearchByDateSection">
+      <app-search-by-date [memberAbsenceDetailsList]="memberAbsenceDetailsList" [startDate]="startDate" [endDate]="endDate"></app-search-by-date>
+    </div>
+  </div>
+</div>
+<div class="bottom-space"></div>
+<p-toast position="top-left"></p-toast>

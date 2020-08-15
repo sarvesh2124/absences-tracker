@@ -1,0 +1,45 @@
+<div class="search-by-date-wrapper">
+    <div class="search-section" *ngIf="!searchByParams">
+        <div class="from-date search-field">
+            <p-calendar [(ngModel)]="startDate" [monthNavigator]="true" [yearNavigator]="true" 
+            yearRange="2000:2021" [showIcon]="true"></p-calendar>
+        </div>
+        <div class="to-date search-field">
+            <p-calendar [(ngModel)]="endDate" [monthNavigator]="true" [yearNavigator]="true" 
+            yearRange="2000:2021" [showIcon]="true"></p-calendar>
+        </div>
+        <div class="search search-field">
+            <p-button label="Search" (click)="search()"></p-button>
+        </div>
+    </div>
+    <div class="export-all-btn" *ngIf="searchByParams || showResults">
+        <p-button label="Export Results" (click)="exportAll()"><i class="pi pi-download"></i></p-button>
+    </div>
+    <p-table *ngIf="searchByParams || showResults" [value]="memberAbsenceFilteredList" styleClass="p-datatable-gridlines" [paginator]="true" [rows]="5">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>User Id</th>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Crew Id</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Type</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td>{{item.memberDetails.userId}}</td>
+                <td>{{item.memberDetails.name}}</td>
+                <td class="user-image"><img src={{item.memberDetails.image}}></td>
+                <td>{{item.memberDetails.crewId}}</td>
+                <td>{{item.absenceDetails[0].startDate}}</td>
+                <td>{{item.absenceDetails[0].endDate}}</td>
+                <td>{{item.absenceDetails[0].type}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <div class = "no-records"> No records found</div>
+        </ng-template>
+    </p-table>
+</div>

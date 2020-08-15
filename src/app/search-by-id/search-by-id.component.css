@@ -1,0 +1,57 @@
+.view {
+    color: #2196f3;
+    font-weight: bold;
+}
+
+.view:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.member-left-details {
+    text-align: left;
+    display: inline-block;
+    width: 50%;
+}
+
+.member-detail {
+    padding: 10px;
+    font-weight: bold;
+    color: #2196f3;
+}
+
+.member-right-details {
+    text-align: right;
+    display: inline-block;
+    width: 50%;
+}
+.member-img {
+    width: 103px;
+    border: 1px #000 solid;
+    text-align: right;
+    display: inline-block;
+    margin-right: 3px;
+}
+.member-detail span {
+    color: #000;
+    font-weight: 500;
+}
+.export-all-btn {
+    text-align: right;
+    margin: 10px 0px;
+}
+.export-section {
+    text-align: right;
+    margin: 14px;
+    margin-right: 0px;
+    margin-top: 30px;
+}
+.global-search-section.ng-star-inserted {
+    text-align: left;
+}
+.no-records {
+    text-align: center;
+    display: block;
+    font-weight: bold;
+    color: #2196f3;
+    position: absolute;
+}

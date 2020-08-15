@@ -1,0 +1,84 @@
+<div class="search-by-id-wrapper">
+    <div class="export-all-btn" *ngIf="!specificMemberSearch">
+        <p-button label="Export All Members" (click)="exportAll()"><i class="pi pi-download"></i></p-button>
+    </div>
+    <p-table #search [value]="memberAbsenceDetailsList" styleClass="p-datatable-gridlines" [paginator]="true" [rows]="5"
+    [globalFilterFields]="['memberDetails.userId']">
+        <ng-template pTemplate="caption" *ngIf="!specificMemberSearch">
+            <div class="global-search-section">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input id="global-search" pInputText type="text" (input)="search.filterGlobal($event.target.value, 'contains')" placeholder="User Id"/>
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>User Id</th>
+                <th>Name</th>
+                <th>Crew Id</th>
+                <th>Absence</th>
+                <th>Export Absence</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td>{{item.memberDetails.userId}}</td>
+                <td>{{item.memberDetails.name}}</td>
+                <td>{{item.memberDetails.crewId}}</td>
+                <td><span class="view" (click)="showMemberAbsenceList(item)">View</span></td>
+                <td><p-button label="Export" (click)="export(item)"><i class="pi pi-download"></i></p-button></td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <div class = "no-records"> No records found</div>
+        </ng-template>
+    </p-table>
+</div>
+<p-dialog header="Member Absence" [(visible)]="showAbsencePopup" [style]="{width: '90vw'}" modal="true">
+    <div class="member-details" *ngIf="memberAbsenceDetails != null">
+        <div class="member-left-details">
+            <div class="member-detail">User Id: <span>{{memberAbsenceDetails.memberDetails.userId}}</span></div>
+            <div class="member-detail">Name: <span>{{memberAbsenceDetails.memberDetails.name}}</span></div>
+            <div class="member-detail">Crew Id: <span>{{memberAbsenceDetails.memberDetails.crewId}}</span></div>
+        </div>
+        <div class="member-right-details">
+            <div class="member-img"><img [src]="memberAbsenceDetails.memberDetails.image"></div>
+        </div>
+    </div>
+    <div class="export-section">
+        <p-button label="Export" (click)="export(memberAbsenceDetails)"><i class="pi pi-download"></i></p-button>
+    </div>
+    <p-table [value]="absenceList" styleClass="p-datatable-gridlines" [paginator]="true" [rows]="5">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Admitter Id</th>
+                <th>Admitter Note</th>
+                <th>Confirmed Date</th>
+                <th>Created Date</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Member Note</th>
+                <th>Rejected At</th>
+                <th>Type</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td>{{item.admitterId}}</td>
+                <td>{{item.admitterNote}}</td>
+                <td>{{item.confirmedAt | date:"MM-dd-yyyy"}}</td>
+                <td>{{item.createdAt | date:"MM-dd-yyyy"}}</td>
+                <td>{{item.startDate | date:"MM-dd-yyyy"}}</td>
+                <td>{{item.endDate | date:"MM-dd-yyyy"}}</td>
+                <td>{{item.memberNote}}</td>
+                <td>{{item.rejectedAt | date:"MM-dd-yyyy"}}</td>
+                <td>{{item.type}}</td>
+                
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <div class = "no-records"> No records found</div>
+        </ng-template>
+    </p-table>
+</p-dialog>
