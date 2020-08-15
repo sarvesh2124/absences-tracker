@@ -23,3 +23,8 @@ td.user-image img {
     color: #2196f3;
     position: absolute;
 }
+.error-msg {
+    color: red;
+    font-weight: bold;
+    padding: 20px 0px;
+}

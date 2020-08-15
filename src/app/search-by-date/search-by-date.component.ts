@@ -17,35 +17,36 @@ export class SearchByDateComponent implements OnInit {
   MemberAbsence: MemberAbsenceDetails;
   searchByParams: boolean;
   showResults: boolean;
+  showError: boolean;
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.showResults = false;
-    if(this.startDate != null && this.endDate != null) {
+    if (this.startDate != null && this.endDate != null) {
       this.searchByParams = true;
-      this.filterByStartEndDates(new Date(this.startDate) , new Date(this.endDate));
+      this.filterByStartEndDates(new Date(this.startDate), new Date(this.endDate));
     }
     else {
       this.searchByParams = false;
     }
   }
 
-  filterByStartEndDates(start: Date,end: Date) {
+  filterByStartEndDates(start: Date, end: Date) {
     this.memberAbsenceFilteredList = [];
-    _.each(this.memberAbsenceDetailsList,(member,index)=>{
-        this.MemberAbsence = new MemberAbsenceDetails();
-        this.MemberAbsence.absenceDetails = [];
-      _.each(member.absenceDetails,(absence)=>{
-        if(new Date(absence.startDate) >= start && new Date(absence.startDate) <= end) {
+    _.each(this.memberAbsenceDetailsList, (member, index) => {
+      this.MemberAbsence = new MemberAbsenceDetails();
+      this.MemberAbsence.absenceDetails = [];
+      _.each(member.absenceDetails, (absence) => {
+        if (new Date(absence.startDate) >= start && new Date(absence.startDate) <= end) {
           this.MemberAbsence.absenceDetails.push(absence);
-          this.MemberAbsence.memberDetails = member.memberDetails;       
-          this.memberAbsenceFilteredList.push(this.MemberAbsence);      
-          return;       
-        }  
-        else if(new Date(absence.endDate) >= start && new Date(absence.endDate) <= end) {
+          this.MemberAbsence.memberDetails = member.memberDetails;
+          this.memberAbsenceFilteredList.push(this.MemberAbsence);
+          return;
+        }
+        else if (new Date(absence.endDate) >= start && new Date(absence.endDate) <= end) {
           this.MemberAbsence.absenceDetails.push(absence);
-          this.MemberAbsence.memberDetails = member.memberDetails;    
-          this.memberAbsenceFilteredList.push(this.MemberAbsence);      
+          this.MemberAbsence.memberDetails = member.memberDetails;
+          this.memberAbsenceFilteredList.push(this.MemberAbsence);
         }
       })
     })
@@ -54,7 +55,16 @@ export class SearchByDateComponent implements OnInit {
   }
 
   search() {
-    this.filterByStartEndDates(this.startDate,this.endDate); 
+    this.showError = false;
+    this.showResults = false;
+    if (this.startDate != null && this.endDate) {
+      this.showError = false;
+      this.filterByStartEndDates(this.startDate, this.endDate);
+    }
+    else {
+      this.showError = true;
+    }
+
   }
 
   exportAll() {

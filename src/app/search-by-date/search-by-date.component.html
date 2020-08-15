@@ -2,15 +2,16 @@
     <div class="search-section" *ngIf="!searchByParams">
         <div class="from-date search-field">
             <p-calendar [(ngModel)]="startDate" [monthNavigator]="true" [yearNavigator]="true" 
-            yearRange="2000:2021" [showIcon]="true"></p-calendar>
+            yearRange="2000:2021" [showIcon]="true" placeholder="Start Date"></p-calendar>
         </div>
         <div class="to-date search-field">
             <p-calendar [(ngModel)]="endDate" [monthNavigator]="true" [yearNavigator]="true" 
-            yearRange="2000:2021" [showIcon]="true"></p-calendar>
+            yearRange="2000:2021" [showIcon]="true" placeholder="End Date"></p-calendar>
         </div>
         <div class="search search-field">
             <p-button label="Search" (click)="search()"></p-button>
         </div>
+        <div class="error-msg" *ngIf="showError">Start Date and End Date are Mandatory</div>
     </div>
     <div class="export-all-btn" *ngIf="searchByParams || showResults">
         <p-button label="Export Results" (click)="exportAll()"><i class="pi pi-download"></i></p-button>
