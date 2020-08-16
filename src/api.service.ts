@@ -13,10 +13,10 @@ import {MessageService} from 'primeng/api';
   providedIn: 'root'
 })
 export class ApiService {
-  downloadFile: boolean;
-
-  constructor(private http: HttpClient,private messageService: MessageService) { }
-
+  generateICalMessage: string;
+  constructor(private http: HttpClient,private messageService: MessageService) {
+    this.generateICalMessage = "";
+   }
   getMembersDetails() {
     return this.http.get<any>("../assets/json_files/members.json");
   }
@@ -25,7 +25,6 @@ export class ApiService {
   }
 
   generateICal(exportDetails: MemberAbsenceDetails[]) {
-
     let events = [];
     var name;
     var leaveType;
@@ -72,10 +71,12 @@ export class ApiService {
         var blob = new Blob([value], { type: "ics" });
         FileSaver.saveAs(blob, "AbsenceTracker.ics");
         this.messageService.add({severity:'success', summary:'File Download Success!', detail:''});
+        this.generateICalMessage = "File Download Success!";
       })
     }
     else {
       this.messageService.add({severity:'warn', summary:'No Records To Download', detail:''});
+      this.generateICalMessage = "No Records To Download";
     }
   }
 }

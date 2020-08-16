@@ -3,12 +3,13 @@
         <p-button label="Export All Members" (click)="exportAll()"><i class="pi pi-download"></i></p-button>
     </div>
     <p-table #search [value]="memberAbsenceDetailsList" styleClass="p-datatable-gridlines" [paginator]="true" [rows]="5"
-    [globalFilterFields]="['memberDetails.userId']">
+        [globalFilterFields]="['memberDetails.userId']">
         <ng-template pTemplate="caption" *ngIf="!specificMemberSearch">
             <div class="global-search-section">
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input id="global-search" pInputText type="text" (input)="search.filterGlobal($event.target.value, 'contains')" placeholder="User Id"/>
+                    <input id="global-search" pInputText type="text"
+                        (input)="search.filterGlobal($event.target.value, 'contains')" placeholder="User Id" />
                 </span>
             </div>
         </ng-template>
@@ -27,11 +28,13 @@
                 <td>{{item.memberDetails.name}}</td>
                 <td>{{item.memberDetails.crewId}}</td>
                 <td><span class="view" (click)="showMemberAbsenceList(item)">View</span></td>
-                <td><p-button label="Export" (click)="export(item)"><i class="pi pi-download"></i></p-button></td>
+                <td>
+                    <p-button label="Export" (click)="export(item)"><i class="pi pi-download"></i></p-button>
+                </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage" let-columns>
-            <div class = "no-records"> No records found</div>
+            <div class="no-records"> No records found</div>
         </ng-template>
     </p-table>
 </div>
@@ -74,11 +77,10 @@
                 <td>{{item.memberNote}}</td>
                 <td>{{item.rejectedAt | date:"MM-dd-yyyy"}}</td>
                 <td>{{item.type}}</td>
-                
             </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage" let-columns>
-            <div class = "no-records"> No records found</div>
+            <div class="no-records"> No records found</div>
         </ng-template>
     </p-table>
 </p-dialog>

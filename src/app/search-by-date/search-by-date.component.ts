@@ -32,39 +32,43 @@ export class SearchByDateComponent implements OnInit {
   }
 
   filterByStartEndDates(start: Date, end: Date) {
-    this.memberAbsenceFilteredList = [];
-    _.each(this.memberAbsenceDetailsList, (member, index) => {
-      this.MemberAbsence = new MemberAbsenceDetails();
-      this.MemberAbsence.absenceDetails = [];
-      _.each(member.absenceDetails, (absence) => {
-        if (new Date(absence.startDate) >= start && new Date(absence.startDate) <= end) {
-          this.MemberAbsence.absenceDetails.push(absence);
-          this.MemberAbsence.memberDetails = member.memberDetails;
-          this.memberAbsenceFilteredList.push(this.MemberAbsence);
-          return;
-        }
-        else if (new Date(absence.endDate) >= start && new Date(absence.endDate) <= end) {
-          this.MemberAbsence.absenceDetails.push(absence);
-          this.MemberAbsence.memberDetails = member.memberDetails;
-          this.memberAbsenceFilteredList.push(this.MemberAbsence);
-        }
+    if (start != null && end != null) {
+      this.memberAbsenceFilteredList = [];
+      _.each(this.memberAbsenceDetailsList, (member, index) => {
+        this.MemberAbsence = new MemberAbsenceDetails();
+        this.MemberAbsence.absenceDetails = [];
+        _.each(member.absenceDetails, (absence) => {
+          if (new Date(new Date(absence.startDate).setHours(0, 0, 0, 0)) >= start && new Date(new Date(absence.startDate).setHours(0, 0, 0, 0)) <= end) {
+            this.MemberAbsence.absenceDetails.push(absence);
+            this.MemberAbsence.memberDetails = member.memberDetails;
+            this.memberAbsenceFilteredList.push(this.MemberAbsence);
+            return;
+          }
+          else if (new Date(new Date(absence.endDate).setHours(0, 0, 0, 0)) >= start && new Date(new Date(absence.endDate).setHours(0, 0, 0, 0)) <= end) {
+            this.MemberAbsence.absenceDetails.push(absence);
+            this.MemberAbsence.memberDetails = member.memberDetails;
+            this.memberAbsenceFilteredList.push(this.MemberAbsence);
+          }
+        })
       })
-    })
-    console.log(this.memberAbsenceFilteredList);
-    this.showResults = true;
+      console.log(this.memberAbsenceFilteredList);
+      this.showResults = true;
+    }
+    else {
+      this.memberAbsenceFilteredList = [];
+    }
   }
 
   search() {
     this.showError = false;
     this.showResults = false;
-    if (this.startDate != null && this.endDate) {
+    if (this.startDate != null && this.endDate != null) {
       this.showError = false;
       this.filterByStartEndDates(this.startDate, this.endDate);
     }
     else {
       this.showError = true;
     }
-
   }
 
   exportAll() {

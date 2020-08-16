@@ -17,7 +17,7 @@ export class SearchByIdComponent implements OnInit {
   searchMemberId;
   showAbsencePopup: boolean;
   memberAbsenceDetails: MemberAbsenceDetails;
-  absenceList: AbsenceDetails;
+  absenceList: AbsenceDetails[];
   memberImage: any;
   exportDetails: MemberAbsenceDetails[];
   specificMemberSearch: boolean;
@@ -25,28 +25,27 @@ export class SearchByIdComponent implements OnInit {
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
-    if(this.searchMemberId != null) {
+    if (this.searchMemberId != null) {
       this.specificMemberSearch = true;
-      this.searchMemberById = _.find(this.memberAbsenceDetailsList, (member)=>{
+      this.searchMemberById = _.find(this.memberAbsenceDetailsList, (member) => {
         return member.memberDetails.userId == this.searchMemberId;
       })
       this.memberAbsenceDetailsList = [];
-      if(this.searchMemberById != null) {
-      this.memberAbsenceDetailsList.push(this.searchMemberById);
+      if (this.searchMemberById != null) {
+        this.memberAbsenceDetailsList.push(this.searchMemberById);
       }
     }
   }
 
-  showMemberAbsenceList(member) {
-   
-    this.memberAbsenceDetails = member;
-    this.absenceList = member.absenceDetails;
-    this.showAbsencePopup = true;
+  showMemberAbsenceList(member: MemberAbsenceDetails) {
+    this.memberAbsenceDetails = member != null ? member : null;
+    this.absenceList = member.absenceDetails != null ? member.absenceDetails : null;
+    this.showAbsencePopup = member != null ? true : false;
   }
 
-  export(exportData) {
+  export(exportData: MemberAbsenceDetails) {
     this.exportDetails = [];
-    this.exportDetails.push(exportData);
+    this.exportDetails.push(exportData != null ? exportData : null);
     this.apiService.generateICal(this.exportDetails);
   }
 

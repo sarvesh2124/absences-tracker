@@ -24,29 +24,27 @@ export class AppComponent implements OnInit {
   endDate: any;
   searchByParams: boolean;
 
-  constructor(private apiService: ApiService,private activatedRoute: ActivatedRoute) {}
+  constructor(private apiService: ApiService, private activatedRoute: ActivatedRoute) { }
   ngOnInit() {
     this.getPageDetails();
     this.searchByParams = false;
-    this.activatedRoute.queryParams.subscribe(params=>{
+    this.activatedRoute.queryParams.subscribe(params => {
       let userId = params['userId'];
       let startDate = params['startDate'];
       let endDate = params['endDate'];
-      if(userId != null) {
+      if (userId != null) {
         this.searchMemberId = userId;
         this.selectedSearchValue = 'searchById';
         this.searchByParams = true;
       }
-      else if(startDate != null || endDate != null){
+      else if (startDate != null || endDate != null) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.selectedSearchValue = 'searchByDate';
         this.searchByParams = true;
       }
-      this.loadSearch(); 
+      this.loadSearch();
     })
-    
-       
   }
 
   getPageDetails() {
@@ -55,24 +53,27 @@ export class AppComponent implements OnInit {
       this.apiService.getAbsencesDetails().subscribe((response) => {
         this.absenceDetails = response.payload;
         this.generateMemberAbsence();
+      }, (error) => {
+        this.absenceDetails = [];
       })
+    }, (error) => {
+      this.membersDetails = [];
     })
-    
   }
 
   generateMemberAbsence() {
-   this.memberAbsenceDetailsList = [];
-    _.each (this.membersDetails, (member,index)=>{
+    this.memberAbsenceDetailsList = [];
+    _.each(this.membersDetails, (member, index) => {
       this.memberAbsenceDetail = new MemberAbsenceDetails();
       this.memberAbsenceDetail.absenceDetails = []
       this.memberAbsenceDetail.memberDetails = member;
-      _.each(this.absenceDetails,(absence)=>{
-        if(absence.userId == member.userId){
+      _.each(this.absenceDetails, (absence) => {
+        if (absence.userId == member.userId) {
           this.memberAbsenceDetail.absenceDetails.push(absence)
         }
       })
       this.memberAbsenceDetailsList.push(this.memberAbsenceDetail);
-    });    
+    });
   }
   loadSearch() {
     if (this.selectedSearchValue == 'searchById' || this.selectedSearchValue != 'searchByDate') {
